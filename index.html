@@ -2,6 +2,21 @@
 <!DOCTYPE html>
 <html lang="th">
 <head>
+git clone git@github.com:unicode-org/icu.git
+cd icu/icu4c/source
+make clean
+cp ~/Downloads/thaidict_no_space.txt data/brkitr/dictionaries/thaidict.txt
+./runConfigureICU MacOSX --disable-samples --disable-tests --enable-static --disable-shared --disable-renaming  && make -j8
+
+DYLD_LIBRARY_PATH=../lib:../stubdata:../tools/ctestfw:$DYLD_LIBRARY_PATH  ../bin/gendict -i ./out/build/icudt70l -c --bytes --transform offset-0x0e00 ./brkitr/dictionaries/thaidict.txt ./out/build/icudt70l/brkitr/thaidict.dict
+Codepoint U+002e out of range for --transform offset-0e00!
+make[1]: *** [out/build/icudt70l/brkitr/thaidict.dict] Error 1
+
+/usr/local/opt/icu4c/bin/gendict -c --bytes --transform offset-0x0e00 ~/Downloads/thaidict_no_space.txt ~/Downloads/thai.dict
+Codepoint U+002e out of range for --transform offset-0e00!
+
+gendict: got failure of type U_ILLEGAL_ARGUMENT_ERROR while serializing, if U_ILLEGAL_ARGUMENT_ERROR possibly due to duplicate dictionary entries
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>??????????? Google Apps Script</title>
