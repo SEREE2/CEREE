@@ -1,53 +1,14 @@
-function updateGitHubPage() {
-    var token = "your_github_token"; // ใส่ GitHub Token ที่สร้างไว้
-    var repo = "CEREE"; // ชื่อ repo ของคุณ
-    var owner = "seree2"; // ชื่อ GitHub ของคุณ
-    var path = "index.html"; // ไฟล์ที่จะอัปเดต
-    var branch = "main"; // Branch ที่ GitHub Pages ใช้ (เปลี่ยนได้ถ้าใช้ branch อื่น)
 
-    // เนื้อหา HTML ที่จะอัปโหลด
-    var content = `
 <!DOCTYPE html>
 <html lang="th">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>หน้าเว็บจาก Google Apps Script</title>
+    <title>??????????? Google Apps Script</title>
 </head>
 <body>
-    <h1>🚀 อัปเดตอัตโนมัติจาก Google Apps Script!</h1>
-    <p>ไฟล์นี้ถูกสร้างและอัปโหลดโดย Apps Script</p>
-    <p>📅 อัปเดตล่าสุด: ${new Date().toLocaleString("th-TH")}</p>
+    <h1>? ?????????????????? Google Apps Script!</h1>
+    <p>???????????????????????????? Apps Script</p>
+    <p>? ????????????: 10/3/2568 09:29:53</p>
 </body>
 </html>
-`;
-
-    var url = `https://api.github.com/repos/${owner}/${repo}/contents/${path}`;
-
-    var headers = {
-        "Authorization": "token " + token,
-        "Accept": "application/vnd.github.v3+json"
-    };
-
-    // ตรวจสอบว่าไฟล์มีอยู่หรือไม่
-    var response = UrlFetchApp.fetch(url, { headers: headers, muteHttpExceptions: true });
-    var sha = response.getResponseCode() === 200 ? JSON.parse(response.getContentText()).sha : null;
-
-    var payload = {
-        message: "🚀 อัปเดตหน้าเว็บจาก Google Apps Script",
-        content: Utilities.base64Encode(content), // GitHub API ต้องใช้ Base64 encode
-        branch: branch
-    };
-
-    if (sha) payload.sha = sha; // ถ้ามีไฟล์อยู่แล้ว ต้องส่ง SHA ไปด้วย
-
-    var options = {
-        method: "put",
-        headers: headers,
-        payload: JSON.stringify(payload),
-        muteHttpExceptions: true
-    };
-
-    var result = UrlFetchApp.fetch(url, options);
-    Logger.log(result.getContentText()); // ตรวจสอบ Log เพื่อตรวจสอบผลลัพธ์
-}
